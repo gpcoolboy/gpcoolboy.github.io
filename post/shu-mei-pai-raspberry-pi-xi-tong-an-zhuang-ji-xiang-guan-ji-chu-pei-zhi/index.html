@@ -1,0 +1,352 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="all,follow">
+<meta name="googlebot" content="index,follow,snippet,archive">
+<title>树莓派Raspberry Pi系统安装及相关基础配置 | 不信邪</title>
+<link rel="shortcut icon" href="https://gpcoolboy.github.io/favicon.ico?v=1676819005258">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gpcoolboy.github.io/styles/main.css" type='text/css' media='all'>
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+
+
+</head>
+<body class="home blog ct-body standard">
+<div id="overflow-container" class="overflow-container">
+  <a class="skip-content" href="#main">Skip to content</a>
+  <header id="site-header" class="site-header" role="banner">
+    <div class='top-navigation top-navigation-important'>
+        <div class='container'>
+            <div id="menu-secondary" class="menu-container menu-secondary" role="navigation">
+                <button id="toggle-secondary-navigation" class="toggle-secondary-navigation"><i class="fa fa-plus"></i></button>
+                <div class="menu">
+                    <ul id="menu-secondary-items" class="menu-secondary-items">
+                        
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/dEQv05mX5/">ubuntu</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/yU4jGOBmd/">Raspberry Pi</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/vGlVxMwkT/">docker</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/85UjrCPsC/">python</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/Y4LBYbfPq/">centos</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/G0b3hkuKg/">mysql</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/T0V1PLJMT/">devops</a>
+                        </li>
+                            
+                        
+                            
+                        
+                    </ul>
+                </div>
+            </div>
+            <ul class="social-media-icons">
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="title-info" class="title-info">
+            <div id='site-title' class='site-title'>
+                <a href="https://gpcoolboy.github.io">  不信邪 </a>
+            </div>
+        </div>
+        <button id="toggle-navigation" class="toggle-navigation">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div id="menu-primary-tracks" class="menu-primary-tracks"></div>
+        <div id="menu-primary" class="menu-container menu-primary" role="navigation">
+            <p class="site-description">风萧萧兮易水寒，壮士一去兮不复还</p>
+            <div class="menu">
+                <ul id="menu-primary-items" class="menu-primary-items">
+                     
+                        
+                            <li id="menu-item" class='menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item'>
+                                <a href="/">首页</a>
+                            </li>
+                        
+                    
+                        
+                            <li id="menu-item" class='menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item'>
+                                <a href="/archives">归档</a>
+                            </li>
+                        
+                    
+                        
+                            <li id="menu-item" class='menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item'>
+                                <a href="/tags">标签</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</header>
+
+
+  <div id="main" class="main" role="main">
+    <div id="loop-container" class="loop-container">
+      <div class="post type-post status-publish format-standard has-post-thumbnail hentry category-design tag-design tag-standard-2 tag-tagalicious tag-travel entry full-without-featured odd excerpt-1">
+        
+          <div class='featured-image lazy lazy-bg-image' data-background="https://gpcoolboy.github.io/post-images/shu-mei-pai-raspberry-pi-xi-tong-an-zhuang-ji-xiang-guan-ji-chu-pei-zhi.jpg">
+          </div>
+        
+
+        <div class="entry-meta">
+          <span class="date">· 2023-02-06 ·</span> <span> / </span>
+          <span class="author">
+            <a href="https://gpcoolboy.github.io" title="" rel="author"> Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></a>
+          </span>
+          
+            <span class="category">
+                    <span> / </span>
+                    <a href="https://gpcoolboy.github.io/tag/yU4jGOBmd/">Raspberry Pi</a>
+                </span>
+          
+        </div>
+        <div class='entry-header'>
+          <h1 class='entry-title'>树莓派Raspberry Pi系统安装及相关基础配置</h1>
+        </div>
+        <div class="entry-container">
+          <div class="entry-content">
+            <article>
+              <h1 id="下载安装镜像">下载安装镜像</h1>
+<p>进入树莓派官网进行镜像下载：<a href="https://www.raspberrypi.com/software/operating-systems/">https://www.raspberrypi.com/software/operating-systems/</a><br>
+树莓派还贴心的提供了镜像刻录工具，下载地址为<a href="https://www.raspberrypi.com/software/">https://www.raspberrypi.com/software/</a><br>
+通过镜像刻录工具可以系统的初始化设置，例如主机名，登录账号密码及wifi网络连接等</p>
+<h1 id="静态ip地址设置">静态IP地址设置</h1>
+<p>SD卡刻录完成就可以放进树莓派里运行了，一开始IP地址是路由器自动分配的。<br>
+如果我们安装的是精简版（lite）我们需要从路由器里找到树莓派的IP地址，如果树莓派有连显示器可以用<code>ip addr</code>查看当前的IP地址，然后用SSH工具进行连接<br>
+用SSH成功登录到系统后先进行静态IP地址的设置</p>
+<pre><code>sudo nano /etc/dhcpcd.conf
+</code></pre>
+<p>添加如下配置文件</p>
+<pre><code>#有线口静态IP地址设置
+interface eth0
+static ip_address=192.168.3.22/24
+static ip6_address=fd51:42f8:caae:d92e::ff/64
+static routers=192.168.3.1
+static domain_name_servers=192.168.3.1 8.8.8.8 fd51:42f8:caae:d92e::1
+#wifi静态IP地址设置
+interface wlan0
+static ip_address=192.168.3.33/24
+static routers=192.168.3.1
+static domain_name_servers=192.168.3.1 8.8.8.8
+</code></pre>
+<p>重启后设置生效</p>
+<pre><code>sudo reboot
+</code></pre>
+<h1 id="apt换源操作">apt换源操作</h1>
+<p>打开apt源列表</p>
+<pre><code>sudo nano /etc/apt/sources.list
+</code></pre>
+<p>注释掉之前有的源地址，添加阿里源（其他源可以查看这个地址：<a href="http://www.raspbian.org/RaspbianMirrors">http://www.raspbian.org/RaspbianMirrors</a>）</p>
+<pre><code>deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye  main non-free contrib rpi
+deb-src http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main non-free contrib rpi
+</code></pre>
+<p>修改另外一个源列表</p>
+<pre><code>sudo nano /etc/apt/sources.list.d/raspi.list
+</code></pre>
+<p>注释掉之前有的源地址，添加阿里源</p>
+<pre><code>deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main
+</code></pre>
+<p>更新软件索引清单</p>
+<pre><code>sudo apt-get update
+sudo apt-get upgrade -y
+</code></pre>
+<p>如果sudo apt-get update报错：bullseye InRelease: The following signatures couldn't be verified because the public key is not a....关键字【9165938D90FDDD2E】<br>
+解决方案：</p>
+<pre><code>sudo gpg --keyserver keyserver.ubuntu.com --recv 9165938D90FDDD2E
+sudo gpg --export --armor 9165938D90FDDD2E | sudo apt-key add -
+</code></pre>
+
+            </article>
+          </div>
+          <div class='entry-meta-bottom'>
+            <div class="entry-categories">
+              <p>
+                <span>Categories</span>
+                
+                  
+                    
+                  <a href="https://gpcoolboy.github.io/tag/dEQv05mX5/" title="View all posts in ubuntu">ubuntu</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/yU4jGOBmd/" title="View all posts in Raspberry Pi">Raspberry Pi</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/vGlVxMwkT/" title="View all posts in docker">docker</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/85UjrCPsC/" title="View all posts in python">python</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/Y4LBYbfPq/" title="View all posts in centos">centos</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/G0b3hkuKg/" title="View all posts in mysql">mysql</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/T0V1PLJMT/" title="View all posts in devops">devops</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/kX8i_7mji/" title="View all posts in yum">yum</a>
+                    
+                    
+              </p>
+            </div>
+            <div class="entry-tags">
+              <p><span>Tags</span>
+              </p>
+            </div>
+          </div>
+          <div class="author-meta">
+            <div class="author">
+              <img alt='' src="https://gpcoolboy.github.io/images/avatar.png?v=1676819005258" class='avatar avatar-72 photo' height='72' width='72'>
+              <span>WRITTEN BY: &nbsp;&nbsp;&nbsp;<a href='https://gpcoolboy.github.io'></a> </span>
+            </div>
+            <div class="bio">
+              <p></p>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+          
+            <nav class="navigation pagination" role="navigation">
+              <h2 class="screen-reader-text">Posts navigation</h2>
+              <div class="nav-links">
+                <a class="next page-numbers" href="https://gpcoolboy.github.io/post/frp-nei-wang-chuan-tou-docker-bu-shu-zhi-nan/">下一篇->Frp内网穿透docker部署指南</a>
+              </div>
+            </nav>
+          
+      </div>
+      <section id="comments" class="comments">
+        
+      </section>
+    </div>
+  </div>
+  <footer id="site-footer" class="site-footer" role="contentinfo">
+    <h1>
+        <a href="https://gpcoolboy.github.io"> 不信邪 </a>
+    </h1>
+    <p class="site-description">风萧萧兮易水寒，壮士一去兮不复还</p>
+    <div id="menu-footer" class="menu-container menu-footer" role="navigation">
+        <div class="menu">
+            <ul id="menu-footer-items" class="menu-footer-items">
+            </ul>
+        </div>
+    </div>
+    <ul class="social-media-icons">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </ul>
+    <div class="design-credit">
+        <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
+    </div>
+</footer>
+<script>
+    hljs.initHighlightingOnLoad()
+</script>
+<script src="https://gpcoolboy.github.io/media/scripts/lib/jquery.min.js"></script>
+<script src="https://gpcoolboy.github.io/media/scripts/lib/jquerymigrate.js"></script>
+<script src="https://gpcoolboy.github.io/media/scripts/lib/production.min.js"></script>
+
+</div>
+</body>
+</html>
+

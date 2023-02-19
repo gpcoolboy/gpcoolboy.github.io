@@ -1,0 +1,370 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="all,follow">
+<meta name="googlebot" content="index,follow,snippet,archive">
+<title>Centos7安装Docker及Docker Compose | 不信邪</title>
+<link rel="shortcut icon" href="https://gpcoolboy.github.io/favicon.ico?v=1676819005258">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gpcoolboy.github.io/styles/main.css" type='text/css' media='all'>
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+
+
+</head>
+<body class="home blog ct-body standard">
+<div id="overflow-container" class="overflow-container">
+  <a class="skip-content" href="#main">Skip to content</a>
+  <header id="site-header" class="site-header" role="banner">
+    <div class='top-navigation top-navigation-important'>
+        <div class='container'>
+            <div id="menu-secondary" class="menu-container menu-secondary" role="navigation">
+                <button id="toggle-secondary-navigation" class="toggle-secondary-navigation"><i class="fa fa-plus"></i></button>
+                <div class="menu">
+                    <ul id="menu-secondary-items" class="menu-secondary-items">
+                        
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/dEQv05mX5/">ubuntu</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/yU4jGOBmd/">Raspberry Pi</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/vGlVxMwkT/">docker</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/85UjrCPsC/">python</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/Y4LBYbfPq/">centos</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/G0b3hkuKg/">mysql</a>
+                        </li>
+                            
+                        
+                            
+                        <li id="menu-item" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item">
+                            <a href="https://gpcoolboy.github.io/tag/T0V1PLJMT/">devops</a>
+                        </li>
+                            
+                        
+                            
+                        
+                    </ul>
+                </div>
+            </div>
+            <ul class="social-media-icons">
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="title-info" class="title-info">
+            <div id='site-title' class='site-title'>
+                <a href="https://gpcoolboy.github.io">  不信邪 </a>
+            </div>
+        </div>
+        <button id="toggle-navigation" class="toggle-navigation">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div id="menu-primary-tracks" class="menu-primary-tracks"></div>
+        <div id="menu-primary" class="menu-container menu-primary" role="navigation">
+            <p class="site-description">风萧萧兮易水寒，壮士一去兮不复还</p>
+            <div class="menu">
+                <ul id="menu-primary-items" class="menu-primary-items">
+                     
+                        
+                            <li id="menu-item" class='menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item'>
+                                <a href="/">首页</a>
+                            </li>
+                        
+                    
+                        
+                            <li id="menu-item" class='menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item'>
+                                <a href="/archives">归档</a>
+                            </li>
+                        
+                    
+                        
+                            <li id="menu-item" class='menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item'>
+                                <a href="/tags">标签</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</header>
+
+
+  <div id="main" class="main" role="main">
+    <div id="loop-container" class="loop-container">
+      <div class="post type-post status-publish format-standard has-post-thumbnail hentry category-design tag-design tag-standard-2 tag-tagalicious tag-travel entry full-without-featured odd excerpt-1">
+        
+          <div class='featured-image lazy lazy-bg-image' data-background="https://gpcoolboy.github.io/post-images/centos7-an-zhuang-docker-ji-docker-compose.webp">
+          </div>
+        
+
+        <div class="entry-meta">
+          <span class="date">· 2023-01-20 ·</span> <span> / </span>
+          <span class="author">
+            <a href="https://gpcoolboy.github.io" title="" rel="author"> Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></a>
+          </span>
+          
+            <span class="category">
+                    <span> / </span>
+                    <a href="https://gpcoolboy.github.io/tag/vGlVxMwkT/">docker</a>
+                </span>
+          
+            <span class="category">
+                    <span> / </span>
+                    <a href="https://gpcoolboy.github.io/tag/Y4LBYbfPq/">centos</a>
+                </span>
+          
+        </div>
+        <div class='entry-header'>
+          <h1 class='entry-title'>Centos7安装Docker及Docker Compose</h1>
+        </div>
+        <div class="entry-container">
+          <div class="entry-content">
+            <article>
+              <h1 id="前言">前言</h1>
+<p>Docker及Docker Compose相关的安装说明官网有讲解是全英文的大家可以参照<a href="https://docs.docker.com/engine/install/centos/">【官网】</a></p>
+<h1 id="先卸载老的版本">先卸载老的版本</h1>
+<p>为了以防万一，还是先运行一下卸载老版本的命令，没有也没关系。</p>
+<pre><code>sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+</code></pre>
+<h1 id="设置存储库">设置存储库</h1>
+<p>安装yum-utils包，它可以提供yum库配置的工具进而设置Yum存储库</p>
+<pre><code>sudo yum install -y yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre>
+<h1 id="安装docker引擎">安装Docker引擎</h1>
+<p>1.安装最新版本的Docker Engine、containerd 和 Docker Compose</p>
+<pre><code>sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+</code></pre>
+<p>2.安装指定版本的Docker可以先查看版本号</p>
+<pre><code>yum list docker-ce --showduplicates | sort -r
+
+docker-ce.x86_64  3:18.09.1-3.el7                     docker-ce-stable
+docker-ce.x86_64  3:18.09.0-3.el7                     docker-ce-stable
+docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable
+docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable
+</code></pre>
+<p>版本号是从冒号开始减号结束的这一段的内容，例如“18.09.1”<br>
+指定版本号安装的命令是：</p>
+<pre><code>sudo yum install docker-ce-&lt;VERSION_STRING&gt; docker-ce-cli-&lt;VERSION_STRING&gt; containerd.io docker-compose-plugin
+</code></pre>
+<h1 id="启动docker">启动Docker</h1>
+<pre><code>sudo systemctl start docker
+</code></pre>
+<p>验证是否正在运行：</p>
+<pre><code>sudo docker run hello-world
+</code></pre>
+<h1 id="离线安装docker">离线安装Docker</h1>
+<p>通过https://download.docker.com/linux/centos/ 选择系统版本，下载rpm文件到服务器上</p>
+<pre><code>sudo yum install /path/to/package.rpm
+</code></pre>
+<p>启动及测试同上</p>
+<h1 id="升级docker">升级Docker</h1>
+<p>离线安装需要重新下载最新的包进行安装，在线的只用运行<code>yum -y upgrade</code>即可</p>
+<h1 id="在线安装docker-compose">在线安装docker-compose</h1>
+<pre><code>sudo yum install docker-compose
+</code></pre>
+<h1 id="离线安装docker-compose">离线安装docker-compose</h1>
+<pre><code># 下载安装文件
+sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+# 赋运行权限
+sudo chmod +x /usr/local/bin/docker-compose
+# 做软链接
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+# 查看安装版本
+sudo docker-compose version
+</code></pre>
+
+            </article>
+          </div>
+          <div class='entry-meta-bottom'>
+            <div class="entry-categories">
+              <p>
+                <span>Categories</span>
+                
+                  
+                    
+                  <a href="https://gpcoolboy.github.io/tag/dEQv05mX5/" title="View all posts in ubuntu">ubuntu</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/yU4jGOBmd/" title="View all posts in Raspberry Pi">Raspberry Pi</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/vGlVxMwkT/" title="View all posts in docker">docker</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/85UjrCPsC/" title="View all posts in python">python</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/Y4LBYbfPq/" title="View all posts in centos">centos</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/G0b3hkuKg/" title="View all posts in mysql">mysql</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/T0V1PLJMT/" title="View all posts in devops">devops</a>
+                    
+                    
+                    
+                  <a href="https://gpcoolboy.github.io/tag/kX8i_7mji/" title="View all posts in yum">yum</a>
+                    
+                    
+              </p>
+            </div>
+            <div class="entry-tags">
+              <p><span>Tags</span>
+              </p>
+            </div>
+          </div>
+          <div class="author-meta">
+            <div class="author">
+              <img alt='' src="https://gpcoolboy.github.io/images/avatar.png?v=1676819005258" class='avatar avatar-72 photo' height='72' width='72'>
+              <span>WRITTEN BY: &nbsp;&nbsp;&nbsp;<a href='https://gpcoolboy.github.io'></a> </span>
+            </div>
+            <div class="bio">
+              <p></p>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+          
+            <nav class="navigation pagination" role="navigation">
+              <h2 class="screen-reader-text">Posts navigation</h2>
+              <div class="nav-links">
+                <a class="next page-numbers" href="https://gpcoolboy.github.io/post/centos7-huan-jing-bu-shu-qian-qi-zhun-bei-gong-zuo/">下一篇->Centos7环境部署前期准备工作</a>
+              </div>
+            </nav>
+          
+      </div>
+      <section id="comments" class="comments">
+        
+      </section>
+    </div>
+  </div>
+  <footer id="site-footer" class="site-footer" role="contentinfo">
+    <h1>
+        <a href="https://gpcoolboy.github.io"> 不信邪 </a>
+    </h1>
+    <p class="site-description">风萧萧兮易水寒，壮士一去兮不复还</p>
+    <div id="menu-footer" class="menu-container menu-footer" role="navigation">
+        <div class="menu">
+            <ul id="menu-footer-items" class="menu-footer-items">
+            </ul>
+        </div>
+    </div>
+    <ul class="social-media-icons">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </ul>
+    <div class="design-credit">
+        <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
+    </div>
+</footer>
+<script>
+    hljs.initHighlightingOnLoad()
+</script>
+<script src="https://gpcoolboy.github.io/media/scripts/lib/jquery.min.js"></script>
+<script src="https://gpcoolboy.github.io/media/scripts/lib/jquerymigrate.js"></script>
+<script src="https://gpcoolboy.github.io/media/scripts/lib/production.min.js"></script>
+
+</div>
+</body>
+</html>
+

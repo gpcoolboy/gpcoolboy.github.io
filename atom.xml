@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://gpcoolboy.github.io</id>
+    <title>不信邪</title>
+    <updated>2023-02-19T15:03:28.107Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://gpcoolboy.github.io"/>
+    <link rel="self" href="https://gpcoolboy.github.io/atom.xml"/>
+    <subtitle>风萧萧兮易水寒，壮士一去兮不复还</subtitle>
+    <logo>https://gpcoolboy.github.io/images/avatar.png</logo>
+    <icon>https://gpcoolboy.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, 不信邪</rights>
+    <entry>
+        <title type="html"><![CDATA[ubuntu22.04桌面版安装]]></title>
+        <id>https://gpcoolboy.github.io/post/ubuntu2204-zhuo-mian-ban-an-zhuang/</id>
+        <link href="https://gpcoolboy.github.io/post/ubuntu2204-zhuo-mian-ban-an-zhuang/">
+        </link>
+        <updated>2023-02-19T13:47:26.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="镜像下载">镜像下载</h1>
+<p>Ubuntu22桌面最新稳定版下载地址：<a href="https://cn.ubuntu.com/download/desktop">https://cn.ubuntu.com/download/desktop</a><br>
+配置虚拟机进行安装</p>
+<h1 id="换软件源">换软件源</h1>
+<p>首先备份软件源信息</p>
+<pre><code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+</code></pre>
+<p>在左下点击应用列表找到Software &amp; Updates（软件和更新）在Download from（下载自）下拉框中选择other<br>
+选择中国的服务器点击select best server按钮自动选择最快的服务器确认即可，关闭窗口的时候它会自动更新源列表</p>
+<h1 id="设置中文操作系统">设置中文操作系统</h1>
+<p>在系统桌面右上点击关机图标，在下拉选择框中选择settings，在左边找到Region &amp; Language，Language一项选择汉语，再点一下Manage Installed Languages按钮，会提示汉语安装包没有装全，要重新下载。<br>
+下载完成后重启即可</p>
+<h1 id="安装搜狗输入法">安装搜狗输入法</h1>
+<p>去搜狗官网下载linux安装包，地址为<a href="https://shurufa.sogou.com/linux">https://shurufa.sogou.com/linux</a><br>
+安装输入法键盘fcitx</p>
+<pre><code>sudo apt-get install fcitx
+</code></pre>
+<p>安装下载搜狗输入法安装包</p>
+<pre><code>sudo dpkg -i sogoupinyin_版本号_平台.deb
+</code></pre>
+<p>安装软件依赖</p>
+<pre><code>sudo apt install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2
+sudo apt install libgsettings-qt1
+</code></pre>
+<p>在系统桌面右上点击关机图标，在下拉选择框中选择settings，在左边找到Region &amp; Language，Language一项选择汉语，再点一下Manage Installed Languages按钮，在键盘输入法系统中选择fcitx4<br>
+最后重启即可<br>
+卸载ibus输入法框架(非必须)</p>
+<pre><code>sudo apt purge ibus
+</code></pre>
+<h1 id="安装远程桌面x11vnc">安装远程桌面X11vnc</h1>
+<p>安装x11vnc</p>
+<pre><code>apt-get install x11vnc -y
+</code></pre>
+<p>将<code>#WaylandEnable=false</code>这一行的注释符#去掉就行，然后重启</p>
+<pre><code>vi /etc/gdm3/custom.conf
+</code></pre>
+<p>运行在app界面运行x11vnc Server，设置一下密码就能直接用todesk进行远程控制了。</p>
+<p>如果要用命令行设置可以参考一下操作：<br>
+设置VNC密码</p>
+<pre><code>x11vnc -storepasswd
+</code></pre>
+<p>启动VNC Service</p>
+<pre><code>x11vnc -forever -shared -rfbauth ~/.vnc/passwd
+</code></pre>
+<p>如果启动不成功报端口已被使用需要先停止系统默认的Wayland工具<br>
+改成系统自动启动</p>
+<pre><code>cp /root/.vnc/passwd /etc/x11vnc.pwd
+/etc/init/x11vnc.conf
+</code></pre>
+<p>添加如下内容</p>
+<pre><code>start on login-session-start
+script
+/usr/bin/x11vnc -auth /var/run/lightdm/root/:0 -noxrecord -noxfixes
+-noxdamage -rfbauth /etc/x11vnc.pwd -forever -bg -rfbport 5900 -o
+/var/log/x11vnc.log
+end script
+</code></pre>
+<p>重启服务器</p>
+<pre><code>systemctl daemon-reload
+systemctl restart x11vnc
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[树莓派Raspberry Pi系统安装及相关基础配置]]></title>
+        <id>https://gpcoolboy.github.io/post/shu-mei-pai-raspberry-pi-xi-tong-an-zhuang-ji-xiang-guan-ji-chu-pei-zhi/</id>
+        <link href="https://gpcoolboy.github.io/post/shu-mei-pai-raspberry-pi-xi-tong-an-zhuang-ji-xiang-guan-ji-chu-pei-zhi/">
+        </link>
+        <updated>2023-02-05T16:21:01.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="下载安装镜像">下载安装镜像</h1>
+<p>进入树莓派官网进行镜像下载：<a href="https://www.raspberrypi.com/software/operating-systems/">https://www.raspberrypi.com/software/operating-systems/</a><br>
+树莓派还贴心的提供了镜像刻录工具，下载地址为<a href="https://www.raspberrypi.com/software/">https://www.raspberrypi.com/software/</a><br>
+通过镜像刻录工具可以系统的初始化设置，例如主机名，登录账号密码及wifi网络连接等</p>
+<h1 id="静态ip地址设置">静态IP地址设置</h1>
+<p>SD卡刻录完成就可以放进树莓派里运行了，一开始IP地址是路由器自动分配的。<br>
+如果我们安装的是精简版（lite）我们需要从路由器里找到树莓派的IP地址，如果树莓派有连显示器可以用<code>ip addr</code>查看当前的IP地址，然后用SSH工具进行连接<br>
+用SSH成功登录到系统后先进行静态IP地址的设置</p>
+<pre><code>sudo nano /etc/dhcpcd.conf
+</code></pre>
+<p>添加如下配置文件</p>
+<pre><code>#有线口静态IP地址设置
+interface eth0
+static ip_address=192.168.3.22/24
+static ip6_address=fd51:42f8:caae:d92e::ff/64
+static routers=192.168.3.1
+static domain_name_servers=192.168.3.1 8.8.8.8 fd51:42f8:caae:d92e::1
+#wifi静态IP地址设置
+interface wlan0
+static ip_address=192.168.3.33/24
+static routers=192.168.3.1
+static domain_name_servers=192.168.3.1 8.8.8.8
+</code></pre>
+<p>重启后设置生效</p>
+<pre><code>sudo reboot
+</code></pre>
+<h1 id="apt换源操作">apt换源操作</h1>
+<p>打开apt源列表</p>
+<pre><code>sudo nano /etc/apt/sources.list
+</code></pre>
+<p>注释掉之前有的源地址，添加阿里源（其他源可以查看这个地址：<a href="http://www.raspbian.org/RaspbianMirrors">http://www.raspbian.org/RaspbianMirrors</a>）</p>
+<pre><code>deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye  main non-free contrib rpi
+deb-src http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main non-free contrib rpi
+</code></pre>
+<p>修改另外一个源列表</p>
+<pre><code>sudo nano /etc/apt/sources.list.d/raspi.list
+</code></pre>
+<p>注释掉之前有的源地址，添加阿里源</p>
+<pre><code>deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main
+</code></pre>
+<p>更新软件索引清单</p>
+<pre><code>sudo apt-get update
+sudo apt-get upgrade -y
+</code></pre>
+<p>如果sudo apt-get update报错：bullseye InRelease: The following signatures couldn't be verified because the public key is not a....关键字【9165938D90FDDD2E】<br>
+解决方案：</p>
+<pre><code>sudo gpg --keyserver keyserver.ubuntu.com --recv 9165938D90FDDD2E
+sudo gpg --export --armor 9165938D90FDDD2E | sudo apt-key add -
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Frp内网穿透docker部署指南]]></title>
+        <id>https://gpcoolboy.github.io/post/frp-nei-wang-chuan-tou-docker-bu-shu-zhi-nan/</id>
+        <link href="https://gpcoolboy.github.io/post/frp-nei-wang-chuan-tou-docker-bu-shu-zhi-nan/">
+        </link>
+        <updated>2023-01-31T12:18:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="前言">前言</h1>
+<p>大多数人家庭都是没有独立的IP地址的，为了能在公网访问家里的服务，我们需要有一台有公网独立IP的服务器，通过有独立IP的服务器将请求转发到家里的服务器上，实现内网穿透。</p>
+<h1 id="部署服务端">部署服务端</h1>
+<p>一般来说，服务端需要部署在有公网独立IP的服务器上，先在服务器上创建一个frps.ini配置文件</p>
+<pre><code>mkdir frp
+cd frp
+vi frps.ini
+</code></pre>
+<pre><code>[common]
+bind_port = 7000 #服务端对外暴露的端口
+token = 12345678  #服务端自定义token
+</code></pre>
+<pre><code>$ docker run -d \
+    -e &quot;ARGS=frps&quot; \
+    -v /home/frp/frps.ini:/frp/frps.ini \
+    --net host \
+    chenhw2/frp
+</code></pre>
+<p>/home/frp/frps.ini 这个地址为之前创建的frps.ini的地址</p>
+<h1 id="部署客户端">部署客户端</h1>
+<p>客户端部署在没有外网IP的服务器上，同样需要先在服务器上创建一个frps.ini配置文件</p>
+<pre><code>mkdir frp
+cd frp
+vi frpc.ini
+</code></pre>
+<pre><code>[common]
+server_addr = 111.111.111.111 #服务端的公网IP
+server_port = 7000 #服务端对外暴露的端口
+token = 12345678 #服务端自定义token，要跟服务端的token相同
+
+[nastools] #自定义服务名称
+type = tcp
+local_ip = 192.168.1.8 #本地服务的内网地址
+local_port = 9000 #本地服务的内网端口
+remote_port = 9001 #本地服务映射到公网IP上的端口号
+</code></pre>
+<pre><code>$ docker run -d \
+    -e &quot;ARGS=frpc&quot; \
+    -v /home/frp/frpc.ini:/frp/frpc.ini \
+    chenhw2/frp
+</code></pre>
+<p>/home/frp/frpc.ini 这个地址为之前创建的frpc.ini的地址</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[NasTools打造家庭观影自由，跟视频网站说拜拜！]]></title>
+        <id>https://gpcoolboy.github.io/post/nastools-da-zao-jia-ting-guan-ying-zi-you-gen-shi-pin-wang-zhan-shuo-bai-bai/</id>
+        <link href="https://gpcoolboy.github.io/post/nastools-da-zao-jia-ting-guan-ying-zi-you-gen-shi-pin-wang-zhan-shuo-bai-bai/">
+        </link>
+        <updated>2023-01-27T04:24:58.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="nastools有什么用">NasTools有什么用</h1>
+<p>NasTools是一个开源视频资源整合平台，它通过其他开源软件的配合实现了影视资源推荐，影视资源搜索，影视站点管理，影视资源订阅，影视资源下载和媒体整理等服务。是集影视资源的发现、搜索、下载、整理、发布一条龙服务，彻底让用户实现了观影自由。但因为都是基于开源软件，部署较为复杂，一般新手很难直接上手，需要有docker部署的基础才行。</p>
+<h1 id="nastools如何部署">NasTools如何部署</h1>
+<h2 id="在群辉系统安装">在群辉系统安装</h2>
+<p>在群辉系统上的套件中心-&gt;设置-&gt;套件来源-&gt;新增<br>
+<img src="https://gpcoolboy.github.io/post-images/1674795777326.png" alt="" loading="lazy"><br>
+矿神套件源: https://spk7.imnks.com/<br>
+社群套件源: https://packages.synocommunity.com/<br>
+然后搜索nastool进行安装，安装完毕后就可以打开nastools了</p>
+<h2 id="在docker中安装">在docker中安装</h2>
+<p>如果是其他的群辉，我们可以直接下载docker映像进行安装</p>
+<pre><code>docker run -d \
+    --name nas-tools \
+    --hostname nas-tools \
+    -p 3000:3000   `# 默认的webui控制端口` \
+    -v $(pwd)/config:/config  `# 冒号左边请修改为你想在主机上保存配置文件的路径` \
+    -v /你的媒体目录:/你想设置的容器内能见到的目录    `# 媒体目录，多个目录需要分别映射进来` \
+    -e PUID=0     `# 想切换为哪个用户来运行程序，该用户的uid，详见下方说明` \
+    -e PGID=0     `# 想切换为哪个用户来运行程序，该用户的gid，详见下方说明` \
+    -e UMASK=000  `# 掩码权限，默认000，可以考虑设置为022` \
+    -e NASTOOL_AUTO_UPDATE=true `# 如需在启动容器时自动升级程程序请设置为true` \
+    -e NASTOOL_CN_UPDATE=true `# 如果开启了容器启动自动升级程序，并且网络不太友好时，可以设置为true，会使用国内源进行软件更新` \
+    jxxghp/nas-tools
+</code></pre>
+<p>也可以新建docker-compose.yaml文件，并以命令docker-compose up -d启动。（前提是安装了docker-compose）</p>
+<pre><code>version: &quot;3&quot;
+services:
+  nas-tools:
+    image: jxxghp/nas-tools:latest
+    ports:
+      - 3000:3000        # 默认的webui控制端口
+    volumes:
+      - ./config:/config   # 冒号左边请修改为你想保存配置的路径
+      - /你的媒体目录:/你想设置的容器内能见到的目录   # 媒体目录，多个目录需要分别映射进来，需要满足配置文件说明中的要求
+    environment: 
+      - PUID=0    # 想切换为哪个用户来运行程序，该用户的uid
+      - PGID=0    # 想切换为哪个用户来运行程序，该用户的gid
+      - UMASK=000 # 掩码权限，默认000，可以考虑设置为022
+      - NASTOOL_AUTO_UPDATE=true  # 如需在启动容器时自动升级程程序请设置为true
+      - NASTOOL_CN_UPDATE=true # 如果开启了容器启动自动升级程序，并且网络不太友好时，可以设置为true，会使用国内源进行软件更新
+     #- REPO_URL=https://ghproxy.com/https://github.com/jxxghp/nas-tools.git  # 当你访问github网络很差时，可以考虑解释本行注释
+    restart: always
+    network_mode: bridge
+    hostname: nas-tools
+    container_name: nas-tools
+</code></pre>
+<h2 id="初步设置nastools">初步设置NasTools</h2>
+<p>NasTools安装好后，根据部署的ip加端口的方式进行访问，默认账号密码是admin/password<br>
+进去之后会报错，我们先进入设置-&gt;基础设置里面修改WEB管理密码<br>
+然后在基础设置-&gt;媒体里设置TMDB API Key（这个key需要去<a href="https://www.themoviedb.org/">www.themoviedb.org</a>进行注册，登录后在右上的个人资料与设定中找到账户设置-&gt;API中找到API 密钥 (v3 auth)将这个密钥复制过来）<br>
+其他设置如图<br>
+<img src="https://gpcoolboy.github.io/post-images/1674796615308.png" alt="" loading="lazy"><br>
+另外，api.themoviedb.org的域名解析需要添加hosts本地解析，在hosts中添加一行</p>
+<pre><code>99.84.192.80 api.themoviedb.org
+</code></pre>
+<h1 id="部署qbittorrent">部署qBittorrent</h1>
+<p>qBittorrent是一个优秀的下载工具，支持BT和http下载<br>
+在群辉中可以直接搜索qBittorrent进行安装<br>
+其他系统可以用docker下载镜像运行</p>
+<pre><code>docker run -d \
+  --name=qbittorrent \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/London \
+  -e WEBUI_PORT=8080 \
+  -p 8080:8080 \
+  -p 6881:6881 \
+  -p 6881:6881/udp \
+  -v /path/to/appdata/config:/config \
+  -v /path/to/downloads:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/qbittorrent:latest
+</code></pre>
+<h1 id="部署jackett">部署Jackett</h1>
+<p>Jackett是一个下载资源搜索的索引器，它可以整合国内外各大资源平台进行资源的搜索<br>
+同样，在群辉中可以直接搜索Jackett进行安装<br>
+其他系统可以用docker下载镜像运行</p>
+<pre><code>docker run -d \
+  --name=jackett \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/London \
+  -e AUTO_UPDATE=true `#optional` \
+  -e RUN_OPTS=&lt;run options here&gt; `#optional` \
+  -p 9117:9117 \
+  -v &lt;path to data&gt;:/config \
+  -v &lt;path to blackhole&gt;:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/jackett:latest
+</code></pre>
+<h1 id="部署jellyfin">部署Jellyfin</h1>
+<p>Jellyfin是一个视频播放平台，它可以根据视频名称生成视频海报及介绍，还支持手机及安卓TV客户端解码播放。<br>
+同样，在群辉中可以直接搜索Jellyfin进行安装<br>
+其他系统可以用docker下载镜像运行</p>
+<pre><code>docker run -d \
+  --name=jellyfin \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/London \
+  -e JELLYFIN_PublishedServerUrl=192.168.0.5 `#optional` \
+  -p 8096:8096 \
+  -p 8920:8920 `#optional` \
+  -p 7359:7359/udp `#optional` \
+  -p 1900:1900/udp `#optional` \
+  -v /path/to/library:/config \
+  -v /path/to/tvseries:/data/tvshows \
+  -v /path/to/movies:/data/movies \
+  --restart unless-stopped \
+  lscr.io/linuxserver/jellyfin:latest
+</code></pre>
+<h1 id="部署chinesesubfinder">部署ChineseSubFinder</h1>
+<p>ChineseSubFinder是一个字幕搜索下载平台，它整合了各种电影字幕资源可以供用户搜索下载<br>
+群辉中需要安装python3再安装docker，在docker-&gt;注册表中搜索ChineseSubFinder下载镜像<br>
+<img src="https://gpcoolboy.github.io/post-images/1674798890016.png" alt="" loading="lazy"><br>
+镜像下载完成后在docker-&gt;映像中找到ChineseSubFinder的镜像点启动，需要映射3个目录，一个是缓存目录/app/cache，一个是配置文件目录/config，最后一个是影视文件目录/media，其他设置均可默认<br>
+其他系统可以用docker下载镜像运行,同样只需要映射以上三个目录就行，它的默认web端口为19035</p>
+<pre><code>docker run -d \
+  --name=ChineseSubFinder \
+  -p 19035:19035 \
+  -v /path/to/library:/config \
+  -v /path/to/tvseries:/app/cache \
+  -v /path/to/movies:/media \
+  --restart unless-stopped \
+  lscr.io/allanpk716/chinesesubfinder:latest
+</code></pre>
+<h1 id="部署flaresolverr">部署FlareSolverr</h1>
+<p>FlareSolverr是一个api访问工具，主要是在Jackett中辅助搜索用的，因为很多国外的站点是有Cloudflare安全防护的，需要FlareSolverr绕过Cloudflare和DDoS-GUARD保护的代理服务器。<br>
+同样群辉中需要在docker-&gt;注册表中搜索FlareSolverr下载镜像<br>
+<img src="https://gpcoolboy.github.io/post-images/1674800978517.png" alt="" loading="lazy"><br>
+镜像下载完成后在docker-&gt;映像中找到FlareSolverr的镜像点启动，映射一下8191的端口即可<br>
+其他系统可以用docker下载镜像运行</p>
+<pre><code>docker run -d \
+  --name=flaresolverr \
+  -p 8191:8191 \
+  -e LOG_LEVEL=info \
+  --restart unless-stopped \
+  ghcr.io/flaresolverr/flaresolverr:latest
+</code></pre>
+<h1 id="再次设置nastools整合其他的工具">再次设置NasTools整合其他的工具</h1>
+<p>设置-&gt;媒体库，添加本地媒体库存放的目录<br>
+<img src="https://gpcoolboy.github.io/post-images/1674801982192.png" alt="" loading="lazy"><br>
+设置-&gt;目录同步，源目录为下载文件的目录，目的目录为上面设置的媒体库目录<br>
+设置-&gt;索引器，设置为Jackett，Jackett地址设置为Jackett部署的地址和端口，Api Key为Jackett生成的API 密钥，密码为空<br>
+设置-&gt;下载器，设置为qBittorrent，地址端口设置为qBittorrent部署的地址和端口，用户名为admin，密码填你设置的qBittorrent密码，qBittorrent默认密码为adminadmin<br>
+设置-&gt;媒体服务器，设置为Jellyfin，服务器地址设置为Jellyfin部署的地址和端口，Api Key为Jellyfin中左上菜单中管理-&gt;控制台-&gt;高级-&gt;API密钥，点击+号输出名称添加一个api密钥，把这个密钥填过去即可<br>
+设置-&gt;字幕，设置为ChineseSubFinder，同样地址端口设置为ChineseSubFinder部署的地址和端口Api Key为ChineseSubFinder生成的key，本地路径填媒体文件夹的路径，远程路径填/media</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CentOS7编译安装OpenSSL1.1.1]]></title>
+        <id>https://gpcoolboy.github.io/post/centos7-bian-yi-an-zhuang-openssl111/</id>
+        <link href="https://gpcoolboy.github.io/post/centos7-bian-yi-an-zhuang-openssl111/">
+        </link>
+        <updated>2023-01-21T08:34:19.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="前言">前言</h1>
+<p>centos7默认提供的OpenSSL版本是1.0.2的，想要升级OpenSSL版本则需要手动进行编译</p>
+<h2 id="我们为什么要升级到111版本">我们为什么要升级到1.1.1版本？</h2>
+<ol>
+<li>OpenSSL1.0有一些安全性的漏洞</li>
+<li>安装最新版的python3.11需要OpenSSL1.1.1，不然会编译失败</li>
+<li>其他相关软件也存在兼容性问题</li>
+</ol>
+<h1 id="下载openssl">下载openssl</h1>
+<p>下载解压编译：</p>
+<pre><code>cd /usr/local/src/
+wget https://www.openssl.org/source/openssl-1.1.1d.tar.gz
+tar xf openssl-1.1.1d.tar.gz
+cd openssl-1.1.1d
+./config
+make &amp;&amp; make install
+</code></pre>
+<h1 id="配置">配置</h1>
+<p>注意：默认编译后，查看当前OpenSSL版本号时，你会发现还是1.0.2，所以这里需要做一些额外的配置工作</p>
+<pre><code>echo &quot;/usr/local/lib64/&quot; &gt;&gt; /etc/ld.so.conf
+ldconfig
+mv /usr/bin/openssl /usr/bin/openssl.old
+ln -sv /usr/local/bin/openssl /usr/bin/openssl
+</code></pre>
+<p>最后验证版本是否已经升级成功</p>
+<pre><code>openssl version
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Centos7离线安装Mysql5.7]]></title>
+        <id>https://gpcoolboy.github.io/post/centos7-an-zhuang-mysql57/</id>
+        <link href="https://gpcoolboy.github.io/post/centos7-an-zhuang-mysql57/">
+        </link>
+        <updated>2023-01-19T18:00:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="前言">前言</h1>
+<p>虽然现在什么都流行容器化，但mysql较为特殊，企业的应用场景决定了其容器化的意义不大，绝大多数请况下还是需要在系统底层进行部署的</p>
+<h1 id="下载安装包">下载安装包</h1>
+<p>mysql官网<a href="https://downloads.mysql.com/archives/community/">下载地址</a><br>
+<img src="https://gpcoolboy.github.io/post-images/1674151506815.png" alt="" loading="lazy"></p>
+<h1 id="准备">准备</h1>
+<p>安装新版mysql前，需将系统自带的mariadb-lib卸载<br>
+查询</p>
+<pre><code>rpm -qa|grep mariadb
+</code></pre>
+<p>如果有则删除自带的mariadb</p>
+<pre><code>rpm -e --nodeps mariadb-libs-5.5.60-1.el7_5.x86_64
+</code></pre>
+<p>依赖包安装</p>
+<pre><code>yum install -y libaio
+</code></pre>
+<h1 id="安装">安装</h1>
+<p>使用tar命令解压</p>
+<pre><code>tar -xvf mysql-5.7.40-1.el7.x86_64.rpm-bundle.tar
+</code></pre>
+<p>为了避免出现权限问题，给mysql解压文件所在目录赋予最大权限</p>
+<pre><code>chmod -R 777 mysql
+</code></pre>
+<p>以下四个包需要严格按照顺序安装，其他包随意</p>
+<pre><code>rpm -ivh mysql-community-common-5.7.40-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-5.7.40-1.el7.x86_64.rpm
+rpm -ivh mysql-community-client-5.7.40-1.el7.x86_64.rpm
+rpm -ivh mysql-community-server-5.7.40-1.el7.x86_64.rpm
+</code></pre>
+<p>如果安装mysql-community-server中出现错误就在后面添加 --force --nodeps，这可能是由于yum安装了旧版本的GPG keys造成的</p>
+<h1 id="配置数据库">配置数据库</h1>
+<pre><code>vim /etc/my.cnf
+</code></pre>
+<p>添加四行</p>
+<pre><code>skip-grant-tables
+character_set_server=utf8
+init_connect='SET NAMES utf8'
+port=9876
+</code></pre>
+<p>这里port是修改mysql默认的3306端口，如有需要可以不修改<br>
+查看修改端口是否生效可以用一下命令</p>
+<pre><code>netstat -tnlp |grep mysqld
+</code></pre>
+<h1 id="启动mysql服务">启动mysql服务</h1>
+<p>设置开机启动</p>
+<pre><code>systemctl start mysqld.service
+</code></pre>
+<p>启动mysql</p>
+<pre><code>mysql
+</code></pre>
+<h1 id="设置密码和开启远程登录">设置密码和开启远程登录</h1>
+<pre><code>update mysql.user set authentication_string=password('123456') where user='root';
+flush privileges;
+</code></pre>
+<p>接着停掉服务</p>
+<pre><code>systemctl stop mysqld.service
+</code></pre>
+<p><strong>编辑my.cnf配置文件将：skip-grant-tables这一行注释掉</strong><br>
+再重启mysql服务</p>
+<pre><code>systemctl start mysqld.service
+</code></pre>
+<p>重新用密码进入mysql，必须再重设密码后才能再设置远程登录</p>
+<pre><code>mysql -u root -p
+set password=password('aaa!@#123');
+grant all privileges on *.* to 'root'@'%' identified by '123@a123' with grant option;
+flush privileges;
+</code></pre>
+<p><strong>后面的就是远程登录密码，远程登录密码可以和用户密码不一样</strong></p>
+<h1 id="开放端口">开放端口</h1>
+<p>配置防火墙打开3306端口并重启防火墙</p>
+<pre><code>firewall-cmd --zone=public --add-port=3306/tcp --permanent
+firewall-cmd --reload
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Centos7安装Docker及Docker Compose]]></title>
+        <id>https://gpcoolboy.github.io/post/centos7-an-zhuang-docker-ji-docker-compose/</id>
+        <link href="https://gpcoolboy.github.io/post/centos7-an-zhuang-docker-ji-docker-compose/">
+        </link>
+        <updated>2023-01-19T16:18:41.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="前言">前言</h1>
+<p>Docker及Docker Compose相关的安装说明官网有讲解是全英文的大家可以参照<a href="https://docs.docker.com/engine/install/centos/">【官网】</a></p>
+<h1 id="先卸载老的版本">先卸载老的版本</h1>
+<p>为了以防万一，还是先运行一下卸载老版本的命令，没有也没关系。</p>
+<pre><code>sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+</code></pre>
+<h1 id="设置存储库">设置存储库</h1>
+<p>安装yum-utils包，它可以提供yum库配置的工具进而设置Yum存储库</p>
+<pre><code>sudo yum install -y yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre>
+<h1 id="安装docker引擎">安装Docker引擎</h1>
+<p>1.安装最新版本的Docker Engine、containerd 和 Docker Compose</p>
+<pre><code>sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+</code></pre>
+<p>2.安装指定版本的Docker可以先查看版本号</p>
+<pre><code>yum list docker-ce --showduplicates | sort -r
+
+docker-ce.x86_64  3:18.09.1-3.el7                     docker-ce-stable
+docker-ce.x86_64  3:18.09.0-3.el7                     docker-ce-stable
+docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable
+docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable
+</code></pre>
+<p>版本号是从冒号开始减号结束的这一段的内容，例如“18.09.1”<br>
+指定版本号安装的命令是：</p>
+<pre><code>sudo yum install docker-ce-&lt;VERSION_STRING&gt; docker-ce-cli-&lt;VERSION_STRING&gt; containerd.io docker-compose-plugin
+</code></pre>
+<h1 id="启动docker">启动Docker</h1>
+<pre><code>sudo systemctl start docker
+</code></pre>
+<p>验证是否正在运行：</p>
+<pre><code>sudo docker run hello-world
+</code></pre>
+<h1 id="离线安装docker">离线安装Docker</h1>
+<p>通过https://download.docker.com/linux/centos/ 选择系统版本，下载rpm文件到服务器上</p>
+<pre><code>sudo yum install /path/to/package.rpm
+</code></pre>
+<p>启动及测试同上</p>
+<h1 id="升级docker">升级Docker</h1>
+<p>离线安装需要重新下载最新的包进行安装，在线的只用运行<code>yum -y upgrade</code>即可</p>
+<h1 id="在线安装docker-compose">在线安装docker-compose</h1>
+<pre><code>sudo yum install docker-compose
+</code></pre>
+<h1 id="离线安装docker-compose">离线安装docker-compose</h1>
+<pre><code># 下载安装文件
+sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+# 赋运行权限
+sudo chmod +x /usr/local/bin/docker-compose
+# 做软链接
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+# 查看安装版本
+sudo docker-compose version
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Centos7环境部署前期准备工作]]></title>
+        <id>https://gpcoolboy.github.io/post/centos7-huan-jing-bu-shu-qian-qi-zhun-bei-gong-zuo/</id>
+        <link href="https://gpcoolboy.github.io/post/centos7-huan-jing-bu-shu-qian-qi-zhun-bei-gong-zuo/">
+        </link>
+        <updated>2023-01-19T12:58:16.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="更新系统和补丁">更新系统和补丁</h1>
+<pre><code>yum -y update
+</code></pre>
+<h1 id="修改ssh远程登陆的默认端口">修改ssh远程登陆的默认端口</h1>
+<p>修改常用默认端口为了防止被人扫描到</p>
+<pre><code>vi /etc/ssh/sshd_config
+</code></pre>
+<p><img src="https://gpcoolboy.github.io/post-images/1674143913819.png" alt="" loading="lazy"><br>
+改好之后重启服务就可以了<br>
+<strong>PS：如果有防火墙或者网关一定要注意这里需要先开端口权限，以防改了之后新端口连不上</strong></p>
+<pre><code>systemctl restart sshd
+</code></pre>
+<p>查看端口的占用情况</p>
+<pre><code>netstat -tnlp |grep ssh
+</code></pre>
+<h1 id="禁止默认root账号登陆并创建普通账号用于登陆">禁止默认root账号登陆，并创建普通账号用于登陆</h1>
+<p>先创建用户和设置密码</p>
+<pre><code>useradd admin
+passwd admin
+</code></pre>
+<p>再编辑这个文件，设置PermitRootLogin no</p>
+<pre><code>vi /etc/ssh/sshd_config
+</code></pre>
+<p><img src="https://gpcoolboy.github.io/post-images/1674133419976.png" alt="" loading="lazy"><br>
+改好之后重启服务就可以了</p>
+<pre><code>systemctl restart sshd
+</code></pre>
+<h1 id="关闭selinux可选">关闭SElinux（可选）</h1>
+<p>SElinux是一个安全服务，有时候会影响到软件的部署，根据自己的情况选择是否关闭</p>
+<pre><code>vi /etc/selinux/config
+</code></pre>
+<p>找到#SELINUX=enforcing，改成SELINUX=disabled，重启才能生效。<br>
+临时关闭可以用如下命令：</p>
+<pre><code>setenforce 0
+</code></pre>
+<p>查看是否关闭可以用这个命令：</p>
+<pre><code>sestatus
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Centos中yum源配置]]></title>
+        <id>https://gpcoolboy.github.io/post/centos-zhong-yum-yuan-pei-zhi/</id>
+        <link href="https://gpcoolboy.github.io/post/centos-zhong-yum-yuan-pei-zhi/">
+        </link>
+        <updated>2023-01-19T12:36:27.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="查看当前yum源">查看当前yum源</h1>
+<pre><code>ll /etc/yum.repos.d/
+cat CentOS-Base.repo
+</code></pre>
+<h1 id="把默认yum源备份可选">把默认yum源备份(可选)</h1>
+<pre><code>cp CentOS-Base.repo CentOS-Base.repo.bak
+</code></pre>
+<p><a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.613b1b11Q4GiOU">centos-yum-阿里官网配置</a><br>
+##CentOS 8:</p>
+<pre><code>wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
+</code></pre>
+<p>##CentOS 7:</p>
+<pre><code>wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+</code></pre>
+<p>##CentOS 6:</p>
+<pre><code>wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-6.10.repo
+</code></pre>
+<h1 id="清除缓存">清除缓存</h1>
+<p>清除全部缓存</p>
+<pre><code>yum clean all
+</code></pre>
+<p>把yum源缓存到本地，加快软件的搜索好安装速度</p>
+<pre><code>yum makecache
+</code></pre>
+<p>更新yum库存</p>
+<pre><code>yum -y update
+</code></pre>
+<p>查看仓库列表</p>
+<pre><code>yum repolist
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Centos7 中Python3.11安装方法]]></title>
+        <id>https://gpcoolboy.github.io/post/python/</id>
+        <link href="https://gpcoolboy.github.io/post/python/">
+        </link>
+        <updated>2023-01-19T06:39:41.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="前言">前言</h1>
+<p>最新版的python3.11需要CentOS安装最新openssl1.1.1的版本，不然编译会报错，具体Centos7升级openssl1.1.1的安装方法在我的博客中有介绍。</p>
+<h1 id="安装相关依赖">安装相关依赖</h1>
+<pre><code>yum -y groupinstall &quot;Development tools&quot;
+yum -y install zlib-devel bzip2-devel openssl-devel openssl11 openssl11-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+yum install -y libffi-devel zlib1g-dev
+yum install zlib* -y
+export CFLAGS=$(pkg-config --cflags openssl11)
+export LDFLAGS=$(pkg-config --libs openssl11)
+</code></pre>
+<h1 id="下载python">下载Python</h1>
+<p>地址：<a href="https://www.python.org/downloads/source/">www.python.org</a></p>
+<h1 id="解压并编译">解压并编译</h1>
+<pre><code>tar -xvf Python-3.11.2.tgz
+cd Python-3.11.2
+</code></pre>
+<h1 id="创建一个安装目录">创建一个安装目录</h1>
+<pre><code>mkdir /usr/local/python3
+</code></pre>
+<h1 id="编译安装">编译安装</h1>
+<pre><code>./configure prefix=/usr/local/python3 --enable-optimizations
+make &amp;&amp; make install
+</code></pre>
+<h1 id="创建软链接">创建软链接</h1>
+<pre><code>ln -s /usr/local/python3/bin/python3 /usr/local/bin/python3
+ln -s /usr/local/python3/bin/pip3 /usr/local/bin/pip3
+</code></pre>
+<h1 id="验证是否成功">验证是否成功</h1>
+<pre><code>python3 -V
+pip3 -V
+</code></pre>
+<h1 id="设置pip源">设置pip源</h1>
+<pre><code>mkdir ~/.pip
+vim ~/.pip/pip.conf
+
+[global]
+index-url=http://mirrors.aliyun.com/pypi/simple/
+[install]
+trusted-host=mirrors.aliyun.com
+ssl_verify: false
+</code></pre>
+<p>设置好后验证一下</p>
+<pre><code>pip3 install --upgrade pip
+</code></pre>
+]]></content>
+    </entry>
+</feed>
